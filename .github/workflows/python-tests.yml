@@ -1,0 +1,31 @@
+name: Python Test CI
+
+# 実行トリガーの設定
+on:
+  push:
+    branches: [ "stage1" ]  # mainブランチにプッシュされた時
+  pull_request:
+    branches: [ "main" ]  # プルリクエストが作成された時
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest  # Linux環境で実行
+
+    steps:
+    - name: コードをチェックアウト
+      uses: actions/checkout@v4
+
+    - name: Pythonのセットアップ
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10' # 使用するPythonのバージョン
+
+    - name: 依存ライブラリのインストール
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+        pip install pytest  # テストツールをインストール
+
+    - name: テストの実行
+      run: |
+        pytest  # もしunittestなら python -m unittest discover などに変更

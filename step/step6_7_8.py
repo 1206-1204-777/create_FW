@@ -8,6 +8,9 @@ class Variable:
     Vriableクラスに与えられたデータの重みを取り出す仕様を追加
     """
     def __init__(self, data):
+        if data is not None:
+            if not isinstance(data, np.ndarray):
+               raise TypeError("{} is not supported".format(type(data)))
         self.data = data
         self.grad = None
         self.creator = None
@@ -19,8 +22,11 @@ class Variable:
         :param func: 対象の変数を作成した関数名
         """
         self.creator = func
+
     
     def backward(self):
+        if self.grad is None:
+            self.grad = np.ones_like(self.data)
         funcs = [self.creator]
         while funcs:
             f = funcs.pop()
@@ -29,6 +35,13 @@ class Variable:
 
             if x.creator is not None:
                 funcs.append(x.creator)
+
+def as_array(x):
+    if np.isscalar(x):
+        return np.array(x)
+        
+    return x
+
 class Function:
     """
     逆伝播に対応した基底クラス
@@ -36,7 +49,7 @@ class Function:
     def __call__(self, input):
         x = input.data
         y = self.forward(x)
-        out = Variable(y)
+        out = Variable(as_array(y))
         out.set_creator(self)
         self.input = input
         self.out = out
@@ -74,7 +87,7 @@ class Exp(Function):
         gx = np.exp(x) * gy
         return gx
     
-# 動作確認
+"""# 動作確認
 A = Square()
 B = Exp()
 C = Square()
@@ -127,4 +140,4 @@ y = C(b)
 
 y.grad = np.array(1.0)
 y.backward()
-print(x.grad)
+print(x.grad)"""
