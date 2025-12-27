@@ -18,7 +18,6 @@ class Variable:
     def set_creator(self, func):
         """
         対象の変数を作成した関数を保持する
-    
         :param func: 対象の変数を作成した関数名
         """
         self.creator = func
