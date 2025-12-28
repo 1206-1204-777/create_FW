@@ -1,0 +1,19 @@
+FW_create_project:
+
+ Requunirements:
+  - 外部ライブラリの使用は最小限であること
+    Pythonのみで実装すること(Python3系を使用)
+    クラウド上で動作可能であること
+
+ Development policy:
+  - Difine-by-Runスタイルで進めること
+    各ステップで動作可能であること
+    CNNやRNNなどの発展技術を使用すること
+    
+ Library used:
+  - numpy
+    cupy
+    matplotlib
+    cuda
+    pillow
+    graphviz
