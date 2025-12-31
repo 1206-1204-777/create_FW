@@ -16,3 +16,12 @@
 ## 3. Factory Functions (square, exp, add)
 
 * **役割**: 各演算クラス（Square, Exp, Add）をインスタンス化して実行するラッパー関数。
+
+## 4. using_confif
+* **役割**: Configで設定するフラグをwith構文で設定するため前処理と後処理を定義。
+* **引数**: `name`: 属性名  `value`: True/Falseを受け取る。
+* **処理**:  with構文での例外発生を想定しtry/finaryを使用。
+* **変数**: `old_value`:finalyブロック内で使用。with構文を抜ける際にフラグを元の値に戻す際に使用。
+
+## 5. no_grad
+* **役割**: using_configを関数呼び出しだけで使用可能にする

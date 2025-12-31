@@ -1,9 +1,10 @@
 """
-step11で行う改修型基底クラスの実装
+stage2で使用するクラス群
 """
 import numpy as np
 import heapq
 import weakref
+import contextlib
 class Variable:
     """
     Vriableクラスに与えられたデータの重みを取り出す仕様を追加
@@ -25,7 +26,7 @@ class Variable:
         self.creator = func
         self.generation = func.generation + 1
     
-    def backward(self):
+    def backward(self, retain_grad=False):
         if self.grad is None:
             self.grad = np.ones_like(self.data)
         funcs = []
@@ -48,7 +49,10 @@ class Variable:
                     x.grad = x.grad + gx
                 if x.creator is not None:
                     add_func(x.creator)
-    def creargrad(self):
+            if not retain_grad:
+                for y in f.outputs:
+                    y().grad = None
+    def crearngrad(self):
         self.grad = None
 
 class Function(object):
@@ -58,11 +62,13 @@ class Function(object):
         if not isinstance(ys, tuple):
             ys = (ys,)
         outputs = [Variable(as_array(y))for y in ys]
-        self.generation = max([x.generation for x in inputs])
-        for output in outputs:
-            output.set_creator(self)
-        self.inputs = inputs
-        self.outputs = [weakref.ref(output)for output in outputs]
+
+        if Config.enabled_backprop:
+            self.generation = max([x.generation for x in inputs])
+            for output in outputs:
+                output.set_creator(self)
+            self.inputs = inputs
+            self.outputs = [weakref.ref(output)for output in outputs]
 
         return outputs if len(outputs) > 1 else outputs[0]
     
@@ -99,6 +105,10 @@ class Exp(Function):
         x = self.input.data
         gx = np.exp(x) * gy
         return gx
+
+class Config:
+    enabled_backprop = True
+
 def as_array(x):
     if np.isscalar(x):
         return np.array(x)
@@ -112,3 +122,15 @@ def exp(x):
     return f(x)
 def add(x0, x1):
     return Add()(x0, x1)
+
+@contextlib.contextmanager
+def using_config(name, value):
+    old_value = getattr(Config, name)
+    setattr(Config, name, value)
+    try:
+        yield
+    finally:
+        setattr(Config, name, old_value)
+
+def no_grad():
+    return using_config('enabled_backprop', False)
