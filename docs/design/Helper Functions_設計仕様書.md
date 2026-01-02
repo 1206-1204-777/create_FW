@@ -13,9 +13,9 @@
 
 
 
-## 3. Factory Functions (square, exp, add)
+## 3. Factory Functions (square, exp, add, mul)
 
-* **役割**: 各演算クラス（Square, Exp, Add）をインスタンス化して実行するラッパー関数。
+* **役割**: 各演算クラス（Square, Exp, Add, Mul）をインスタンス化して実行するラッパー関数。
 
 ## 4. using_confif
 * **役割**: Configで設定するフラグをwith構文で設定するため前処理と後処理を定義。

@@ -27,6 +27,12 @@ class Variable:
             return 'Valiable(None)'
         p = str(self.data).replace('\n', '\n' + '' * 9)
         return 'Variable(' + p + ')'
+    
+    def __mul__(self, other):
+        return mul(self, other)
+    
+    def __add__(self, other):
+        return add(self, other)
 
     def set_creator(self, func):
         """
@@ -107,6 +113,13 @@ class Add(Function):
     def backward(self, gy):
         return gy, gy
 
+class Mul(Function):
+    def forward(self, x0,x1):
+        y = x0 * x1
+        return y
+    def backward(self, dx):
+        x0, x1 = self.inputs[0].data, self.inputs[1].data
+        return dx * x1, dx * x0
 
 class Square(Function):
     def forward(self, x):
@@ -144,6 +157,8 @@ def exp(x):
     return f(x)
 def add(x0, x1):
     return Add()(x0, x1)
+def mul(x0, x1):
+    return Mul()(x0, x1)
 
 @contextlib.contextmanager
 def using_config(name, value):

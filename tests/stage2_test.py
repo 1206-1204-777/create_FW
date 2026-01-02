@@ -48,5 +48,44 @@ class TestVariable(unittest.TestCase):
     def test_repr(self):
         v = Variable(np.array([10,20]))
         self.assertEqual(str(v), 'Variable([10 20])')
+
+    def test_add_forward(self):
+        x0 = Variable(np.array(3.0))
+        x1 = Variable(np.array(2.0))
+        y = x0 + x1
+        self.assertEqual(y.data, 5.0)
+
+    def test_mul_forward(self):
+        x0 = Variable(np.array(3.0))
+        x1 = Variable(np.array(2.0))
+        y = x0 * x1
+        self.assertEqual(y.data, 6.0)
+
+    def test_add_backward(self):
+        x0 = Variable(np.array(3.0))
+        x1 = Variable(np.array(2.0))
+        y = x0 + x1
+        y.backward()
+        self.assertEqual(x0.grad, 1.0)
+        self.assertEqual(x1.grad, 1.0)
+
+    def test_mul_backward(self):
+        x0 = Variable(np.array(3.0))
+        x1 = Variable(np.array(2.0))
+        y = x0 * x1
+        y.backward()
+        self.assertEqual(x0.grad, 2.0)
+        self.assertEqual(x1.grad, 3.0)
+
+    def test_add_error(self):
+        with self.assertRaises(AttributeError):
+            x0 = Variable(np.array(3.0))
+            x0 + 'a'
+
+    def test_add_error(self):
+        with self.assertRaises(AttributeError):
+            x0 = Variable(np.array(3.0))
+            x0 * 'a'
+    
 if __name__ == '__main__':
     unittest.main()
