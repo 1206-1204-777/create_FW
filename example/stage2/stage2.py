@@ -125,9 +125,9 @@ class Mul(Function):
     def forward(self, x0,x1):
         y = x0 * x1
         return y
-    def backward(self, dx):
+    def backward(self, gy):
         x0, x1 = self.inputs[0].data, self.inputs[1].data
-        return dx * x1, dx * x0
+        return gy * x1, gy * x0
 
 class Square(Function):
     def forward(self, x):
