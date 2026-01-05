@@ -11,8 +11,8 @@
 | `Function` | `__call__` | 引数から受け取った値をas_variableに渡すリスト内表記を持つ変数を定義 |
 | `Variable` | `__rmul__ `/ `__radd__` | 演算の際にvariableインスタンスが右項にあった場合に呼び出されるメソッドを追加 |
 | `Variable` | `__array_prority__` | インスタンスの優先度を200に設定し最初にVariable演算が呼び出されるメソッドを追加 |
-| :--- | `add` | 引数x1をas_variableに渡す処理を追加 |
-| :--- | `mul` | 引数x1をas_variaableに渡す処理を追加 |
+| :--- | `add` | 引数x1をas_arrayに渡す処理を追加 |
+| :--- | `mul` | 引数x1をas_arrayに渡す処理を追加 |
 
 ## 3. 詳細設計（Before & After）
 
