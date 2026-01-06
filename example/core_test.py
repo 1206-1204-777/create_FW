@@ -1,5 +1,7 @@
+import sys, os
+sys.path.append(os.path.dirname(os.path.dirname(__file__)))
 import cupy as np
-from stage2 import *
+from dezero.core_simple import *
 import weakref
 
 # 動作実験
