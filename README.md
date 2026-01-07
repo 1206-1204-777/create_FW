@@ -7,7 +7,7 @@
 * **目的**: [FW作成方法の学習]
 * **主な特徴**:
 * [特徴1：書籍を要件定義と考え設計を行ってから実装を行っている]
-* [特徴2：例：直感的なAPIインタフェース]
+* [特徴2：コピペはせず自身で考えながら進めている]
 
 
 
@@ -35,7 +35,7 @@
 
 * 本リポジトリのコードおよびドキュメントは [MIT License](https://www.google.com/search?q=./LICENSE) に基づき公開されています。
 * 参考にしている『ゼロから作るDeep Learning ❸』の公式コードは MIT License で公開されており、本プロジェクトはそのライセンスを尊重し作成されています。
-* Copyright (c) 2024 [あなたのユーザー名] / Original Code Copyright (c) 2020 斎藤 康毅
+* Copyright (c) 2024 kazu / Original Code Copyright (c) 2020 斎藤 康毅
 
 ---
 
@@ -45,11 +45,10 @@
 
 | カテゴリ | 技術名 | 役割 / 採用理由 |
 | --- | --- | --- |
-| **Language** | [Python 3.10+] | [型ヒントを活用した堅牢な開発] |
-| **Framework/Lib** | [FastAPI] | [非同期処理による高速なレスポンスの実現] |
-| **Database** | [PostgreSQL] | [データの整合性と拡張性の確保] |
+| **Language** | [Python 3.10+] | [書籍準拠] |
+| **Framework/Lib** | [numpy/cupy] | [テンソルに関する計算処理] |
 | **Infrastructure** | [Docker] | [環境依存を排除したポータビリティの向上] |
-| **Tooling** | [Pytest / Ruff] | [コード品質の自動検証とフォーマット] |
+| **Tooling** | [unittest] | [追加ライブラリを極力使わない実装方針でのテスト] |
 
 ---
 ## 🏗 アーキテクチャと設計方針 / Architecture
@@ -70,7 +69,6 @@
 ## 📂 リポジトリ構成 / Repository Structure
 
 ```text
-.
 ├── docs/               # 設計ドキュメント・仕様書
 ├── src/                # ソースコード本体
 │   ├── core/           # 基盤ロジック
