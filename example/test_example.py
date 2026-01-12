@@ -7,10 +7,11 @@ from dezero.test_function import *
 import contextlib
 from dezero.util import *
 
-x = Variable(np.array(np.pi / 4))
-y = sin(x)
-y.backward()
-print(y.data)
-print(x.grad)
+x0 = Variable(np.array(0.0))
+x1 = Variable(np.array(2.0))
 
-plot_dot_graph(y, to_file='sin_graph.png')
+z = rosenbrock(x0, x1)
+z.backward()
+print(x0.grad, x1.grad)
+
+plot_dot_graph(z, to_file='rosenbrock.png')
