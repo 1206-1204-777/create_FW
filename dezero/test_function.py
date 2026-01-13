@@ -17,3 +17,11 @@ def goldstein_price(x, y):
 def rosenbrock(x, y):
     z = (1 - x)**2 + 100 * (y - x**2)**2
     return z
+
+def f(x):
+    z = x ** 4 - 2 * x ** 2
+    return z
+
+def gx2(x):
+    z = 12 * x ** 2 - 4
+    return z

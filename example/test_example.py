@@ -7,20 +7,16 @@ from dezero.test_function import *
 import contextlib
 from dezero.util import *
 
-x0 = Variable(np.array(0.0))
-x1 = Variable(np.array(0.0))
-lr = 0.001
-iters = 50000
+x0 = Variable(np.array(2.0))
+
+iters = 10
 for i in range(iters):
-    print(x0, x1)
-
-    z = rosenbrock(x0, x1)
-
+    print(i, x0)
+    z = f(x0)
+    
     x0.crearngrad()
-    x1.crearngrad()
     z.backward()
 
-    x0.data -= lr * x0.grad
-    x1.data -= lr * x1.grad
+    x0.data -= x0.grad / gx2(x0.data)
 
-plot_dot_graph(z, to_file='rosenbrock.png')
+plot_dot_graph(z, to_file='newton.png')
