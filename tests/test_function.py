@@ -44,7 +44,30 @@ class TestFunction(unittest.TestCase):
         with self.assertRaises(TypeError):
             x0 = Variable(np.array(1.0))
             goldstein_price(x0, 'a')
+    
+    def test_rosenbrock_minimum(self):
+        x0 = Variable(np.array(1.0))
+        x1 = Variable(np.array(1.0))
+        z = rosenbrock(x0, x1)
+        self.assertEqual(z.data, 0.0)
 
+    def test_rosenbrock_origin(self):
+        x0 = Variable(np.array(0.0))
+        x1 = Variable(np.array(0.0))
+        z = rosenbrock(x0, x1)
+        z.backward()
+        self.assertEqual(z.data, 1.0)
+        self.assertEqual(x0.grad, -2.0)
+    
+    def test_rosenbrock_error(self):
+        with self.assertRaises(TypeError):
+            x0 = Variable(np.array(1.0))
+            rosenbrock(x0, 'a')
+
+    def test_rosenbrock_error(self):
+        with self.assertRaises(TypeError):
+            x0 = Variable(np.array(1.0))
+            rosenbrock(x0, None)
 
 if __name__ == '__main__':
     unittest.main()
