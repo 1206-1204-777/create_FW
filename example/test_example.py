@@ -15,8 +15,8 @@ for i in range(iters):
     z = f(x0)
     
     x0.crearngrad()
-    z.backward()
+    z.backward(create_graph=True)
 
-    x0.data -= x0.grad / gx2(x0.data)
+    x0.data -= x0.grad.data / gx2(x0.data)
 
 plot_dot_graph(z, to_file='newton.png')
