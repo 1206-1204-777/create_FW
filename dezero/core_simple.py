@@ -219,15 +219,6 @@ def rsub(x0, x1):
 def neg(x):
     return Neg()(x)
 
-def sin(x, threshhold=0.00001):
-    y = 0
-    for i in range(10000):
-        c = (-1) ** i / math.factorial(2 * i + 1)
-        t = c * x ** (2 * i + 1)
-        y = y + t
-        if abs(t.data) < threshhold: break
-    return y
-
 @contextlib.contextmanager
 def using_config(name, value):
     old_value = getattr(Config, name)
