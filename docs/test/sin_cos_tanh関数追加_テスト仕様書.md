@@ -27,9 +27,9 @@
 
 | ID | テストケース名 | 入力値 (Input) | 期待される結果 (Expected) | 備考 |
 | --- | --- | --- | --- | --- |
-| E-01 | スカラー以外の値を渡した場合 | `sin('a')` | `TypeError` |  |
-| E-02 | スカラー以外の値を渡した場合 | `cos('a')` | `TypeError` |  |
-| E-03 | スカラー以外の値を渡した場合 | `tanh('a')` | `TypeError` |  |
+| E-01 | ndarray以外を渡した場合 | `sin('a')` | `TypeError` |  |
+| E-02 | ndarray以外を渡した場合 | `cos('a')` | `TypeError` |  |
+| E-03 | ndarray以外を渡した場合 | `tanh('a')` | `TypeError` |  |
 
 ### 4 注意事項
 - 今回の関数はスカラを返す設計のため、そのままではVariabreクラスでエラーになる
