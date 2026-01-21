@@ -18,4 +18,4 @@ for i in range(3):
     gx = x0.grad
     x0.crearngrad()
     gx.backward(create_graph=True)
-    print(x0.grad)
+    print(x0.grad.dtype)
