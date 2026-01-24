@@ -6,4 +6,10 @@ from dezero.core_simple import no_grad
 from dezero.core_simple import as_array
 from dezero.core_simple import as_variable
 
-import dezero.function
+from dezero.function import sin
+from dezero.function import cos
+from dezero.function import tanh
+from dezero.function import transpose
+from dezero.function import reshape
+from dezero.function import square
+from dezero.function import exp
