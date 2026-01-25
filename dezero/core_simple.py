@@ -6,6 +6,7 @@ import heapq
 import weakref
 import contextlib
 import math
+import dezero
 class Variable:
     __array_priority__ = 200
 
@@ -93,9 +94,25 @@ class Variable:
             if not retain_grad:
                 for y in f.outputs:
                     y().grad = None
-    def crearngrad(self):
+    def clearngrad(self):
         self.grad = None
     
+    def reshape(self, *shape):
+        if len(shape) == 1 and isinstance(shape[0], (tuple, list)):
+            shape = shape[0]
+        return dezero.function.reshape(self, shape)
+    
+    def transpose(self, *axes):
+        if len(axes) == 0:
+            axes = None
+        elif len(axes) == 1:
+            if isinstance(axes[0], (tuple, list)) or axes[0] is None:
+                axes = axes[0]
+        return dezero.function.transpose(self, axes)
+    
+    @property
+    def T(self):
+        return dezero.function.transpose(self)
     @property
     def shape(self):
         return self.data.shape
@@ -156,7 +173,7 @@ class Div(Function):
         return y
     def backward(self, gy):
         x0, x1 = self.inputs
-        gx0 = gy / x0
+        gx0 = gy / x1
         gx1 = gy * (-x0 / x1 ** 2)
         return gx0, gx1
 
