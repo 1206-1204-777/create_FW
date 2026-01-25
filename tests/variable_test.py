@@ -19,7 +19,7 @@ class TestVariable(unittest.TestCase):
     def test_clearngrad(self):
         v = Variable(np.array(1.0))
         v.grad = np.array(1.0)
-        v.crearngrad()
+        v.clearngrad()
         self.assertIsNone(v.grad)
     
     def test_shape(self):
@@ -156,6 +156,6 @@ class TestVariable(unittest.TestCase):
     def test_neg_error(self):
         with self.assertRaises(TypeError):
             -'a' 
-
+    
 if __name__ == '__main__':
     unittest.main()
